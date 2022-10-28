@@ -9,6 +9,7 @@ import us.zoom.sdk.MeetingError;
 import us.zoom.sdk.MeetingService;
 import us.zoom.sdk.MeetingServiceListener;
 import us.zoom.sdk.MeetingStatus;
+import us.zoom.sdk.MeetingParameter;
 
 /**
  * This class implements the handler for the Zoom meeting event in the flutter event channel
@@ -32,6 +33,11 @@ public class StatusStreamHandler implements EventChannel.StreamHandler {
             }
 
             events.success(getMeetingStatusMessage(meetingStatus));
+
+            @Override
+            public void onMeetingParameterNotification(MeetingParameter meetingParameter){
+
+            }
         };
 
         this.meetingService.addListener(statusListener);
@@ -42,6 +48,7 @@ public class StatusStreamHandler implements EventChannel.StreamHandler {
         this.meetingService.removeListener(statusListener);
 
     }
+
 
     private List<String> getMeetingStatusMessage(MeetingStatus meetingStatus) {
         String[] message = new String[2];
